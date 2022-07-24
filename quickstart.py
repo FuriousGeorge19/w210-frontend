@@ -22,6 +22,9 @@ def load_data():
 
 df = load_data()
 
+
+# of clusters is initialized w/2, but can use a streamlit call below to modify the #
+
 def run_kmeans(df, n_clusters=2):
     kmeans = KMeans(n_clusters, random_state=0).fit(df[["Age", "Income"]])
 
@@ -45,9 +48,15 @@ def run_kmeans(df, n_clusters=2):
 
 # Sidebar
 # -----------------------------------------------------------
+
+
+# I think this just creates a sidebar and gives it a variable name
 sidebar = st.sidebar
+
+# This adds a checkbox to the sidebar, gives it a text name and a default value
 df_display = sidebar.checkbox("Display Raw Data", value=True)
 
+# Adds a numeric slider to the sidebar, initializes it and returns the value to n_clusters
 n_clusters = sidebar.slider(
     "Select Number of Clusters",
     min_value=2,
@@ -59,7 +68,7 @@ n_clusters = sidebar.slider(
 # Main
 # -----------------------------------------------------------
 # Create a title for your app
-st.title("Interactive K-Means Clustering")
+st.title("Interactive K-Means Clustering - BOO")
 
 # A description
 st.write("Here is the dataset used in this analysis:")
@@ -71,6 +80,7 @@ if df_display:
     st.write(df)
 
 # Show cluster scatter plot
+# st.write seems very general purpose and useful
 st.write(run_kmeans(df, n_clusters=n_clusters))
 
 
